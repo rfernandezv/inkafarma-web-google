@@ -1,0 +1,111 @@
+<div class="sale-content">
+       
+    <form [formGroup]="saleForm" class="full-width-input">
+        <p>Please complete the information</p>
+
+        <div class="full-width-input">
+            <span>Customer: </span>
+            <mat-form-field >
+                <input matInput #input placeholder="Document Number" [(ngModel)]="documentoNumberSearch" formControlName="documentoNumberSearch" name="documentoNumberSearch" maxlength="8" required >
+                <mat-error *ngIf="isFieldInvalid('documentoNumberSearch')">
+                    Please complete the document number
+                </mat-error>
+            </mat-form-field>
+
+            <button mat-raised-button color="primary" (click)="onSubmitSearchCustomer()" [disabled]="disabledCustomer" >Search</button>    
+            <span *ngIf="searchCustomerCompleted" class="customerSearchResult" >{{customerSearch.name + ' ' + customerSearch.last_Name1 }}</span>
+        </div>
+        
+        <div class="detail-product" *ngIf="searchCustomerCompleted">
+            <div>
+                <span>Product: </span>
+                <mat-form-field >
+                    <input matInput #input placeholder="Product name" [(ngModel)]="productNameSearch" formControlName="productNameSearch" name="productNameSearch" required >
+
+                </mat-form-field>
+        
+                <button mat-raised-button color="primary" (click)="onSubmitSearchProduct()" [disabled]="disabledProduct" >Search</button>    
+                <span *ngIf="searchProductCompleted" class="productSearchResult" >{{obtenerDescripcionProduct() }}</span>
+            </div>
+            <div *ngIf="searchProductCompleted">
+                <span>Quantity: </span>
+                <mat-form-field >
+                    <input matInput #input placeholder="Quantity" [(ngModel)]="quantity" formControlName="quantity" name="quantity" required >
+                    <mat-error *ngIf="isFieldInvalid('quantity')">
+                            Please complete the quantity
+                    </mat-error>
+                </mat-form-field>
+                <button mat-button (click)="onSubmitAddProduct()" > <mat-icon>add_circle_outline</mat-icon> </button>  
+            </div>
+            <div class="table-detail" >
+                    <mat-table #table [dataSource]="dataSource" matSort class="mat-cell">
+
+                            <ng-container matColumnDef="product_id" >
+                              <mat-header-cell *matHeaderCellDef mat-sort-header   > Product Id</mat-header-cell>
+                              <mat-cell *matCellDef="let row" >{{row.product_id}}</mat-cell>
+                            </ng-container>
+                        
+                            <ng-container matColumnDef="productName">
+                              <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
+                              <mat-cell *matCellDef="let row"> {{row.productName}}</mat-cell>
+                            </ng-container>
+                          
+                            <ng-container matColumnDef="currency">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header>Currency</mat-header-cell>
+                                <mat-cell *matCellDef="let row"> {{row.currency}}</mat-cell>
+                            </ng-container>
+                            
+                            <ng-container matColumnDef="price">
+                              <mat-header-cell *matHeaderCellDef mat-sort-header>Price <mat-icon>attach_money</mat-icon></mat-header-cell>
+                              <mat-cell *matCellDef="let row"> {{row.price}}</mat-cell>
+                            </ng-container>
+                        
+                            <ng-container matColumnDef="quantity">
+                              <mat-header-cell *matHeaderCellDef mat-sort-header>Quantity</mat-header-cell>
+                              <mat-cell *matCellDef="let row"> {{row.quantity}}</mat-cell>
+                            </ng-container>
+                        
+                            <ng-container matColumnDef="exchange">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header>Exchange (S/.)</mat-header-cell>
+                                <mat-cell *matCellDef="let row"> {{getTipoDeCambioList(row.currency)}}</mat-cell>
+                            </ng-container>
+
+                            <ng-container matColumnDef="subTotal">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header>SubTotal (S/.)</mat-header-cell>
+                                <mat-cell *matCellDef="let row"> {{calcularSubTotal(row.quantity, row.price, row.currency )}}</mat-cell>
+                            </ng-container>
+
+                            <!-- actions -->
+                            <ng-container matColumnDef="actions">
+                              <mat-header-cell *matHeaderCellDef>
+                                    <mat-icon aria-label="Build">build</mat-icon>
+                              </mat-header-cell>
+                        
+                              <mat-cell *matCellDef="let row; let i=index;">
+                                <button mat-icon-button color="accent" (click)="deleteItem(i, row.product_id)"  >
+                                    <mat-icon aria-label="Delete">remove_circle</mat-icon>
+                                  </button>
+                              </mat-cell>
+                            </ng-container>
+                        
+                            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>                            
+                        </mat-table>                      
+                        <mat-paginator [length]="resultsLength" [pageSize]="10" [pageSizeOptions]="[3, 5, 10, 15]" ></mat-paginator>
+            </div>
+            <div class="total-detail" >
+                <span>Total (S/.): </span>
+                <mat-form-field >
+                    <input matInput #input  [(ngModel)]="total" formControlName="total" name="total" [readonly]="true" >
+                </mat-form-field>
+            </div>
+            <div class="total-detail" >
+                <button mat-raised-button color="primary" (click)="onSubmitSale()" [disabled]="disabledSale" >Sale
+                    <mat-icon aria-label="Sale">monetization_on</mat-icon>
+                </button>    
+            </div>
+                
+        </div>       
+    </form>
+</div>
+

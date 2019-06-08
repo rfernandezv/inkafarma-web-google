@@ -1,0 +1,19 @@
+@import '~@angular/material/theming';
+@import "~ngx-toastr/toastr.css";
+//@import "~ngx-toasta/styles/style-material.css";
+@import url('//fonts.googleapis.com/icon?family=Material+Icons');
+
+@include mat-core();
+
+$primary: mat-palette($mat-yellow, 500);
+$accent:  mat-palette($mat-pink, 500, A200, A400);
+$warn:    mat-palette($mat-red, 500);
+
+$theme: mat-light-theme($primary, $accent, $warn);
+
+@include angular-material-theme($theme);
+
+body {
+  font-weight: normal;
+  margin: 0;
+}

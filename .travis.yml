@@ -1,0 +1,37 @@
+language: node_js
+node_js:
+- '8'
+branches:
+  only:
+  - master
+before_script:
+- npm install -g --silent @angular/cli
+script: 
+- ng build --prod
+- chmod +x dist
+- chmod +x dist/inkafarma-web
+
+before_deploy:
+- ls
+- ls dist
+- ls dist/inkafarma-web
+- sudo cp manifest.yml dist/inkafarma-web
+- sudo cp Staticfile dist/inkafarma-web
+- ls dist/inkafarma-web
+- cd dist/inkafarma-web
+deploy:
+  provider: cloudfoundry
+  skip_cleanup: true
+  username: 
+    secure: "YeUY9Jq90k2yzJSxKxANA9cHKjftw+0WLuiVHBq9DiRSKJfxzEubukaypC1BJ88Js0eYI8yrGGrFe36PyqpVwl2PYJb9FTt4+gJuxcERCHj6A8ODI+fo2sHhp9EteOJvFbqDTyol+lMlTxE2pO9h6XboaKz5sx4fxrWkzfRyafrFql+dY+CnP5x3R8q1nHatsMq9x30vwCN3JXQpx4cnvEOXFbsk6Vv/LxLGVzNCtu9b6M2vtYplMp+l9UE3hl2CYOIeuha8MMUp2ltyqEJitI5Puxne86D3NBrPuCG99ciP8w7ez6wiG+VVJ1lafeLdfi4Ilu5iUCOF/aksbch+X4FYmJk1SU/hUY2eYoa05f70fDctX/kQdwmaTySBMQHyAYXqO0wx++UbA3okI9j4D+Mjjor1z/zjMsJFLPmvssGKs33IaxyEK+7L8/yS7a0ZbRYq0GhVqk1BVvKaoCC+46chGMhLe7Lm356BPpltG5MM6omw+LY3rQyJeiweXaXwrArIG2eD7eLU+Oj0kFb/xi1a7BfW6O4BI813AwogaaI4owz0jQiu+vJ1bgdJhXBNS5rRr7nZ6FmUcQO5yGzYA3wiYlU72GeEqUw0FuePe4jj3EwRQId8mqhLc8TFg2HUgw5NheKIevBBEFqoHK10mIGAu+uLR1q+OBW88znl5l8="
+  password: 
+    secure: "t+hjgj75jzh/OJlpnfdC+RaSp/U/yUW1AMy9QiE1lFEBQF2X7vB9iMlnGDunpMSjaXc60t4cv5L3VdfIBkFU3KzxQtT4Ou8cksoGrltD8q5VPl142julWg4P7J8McXIE03S9vEEzsvz06GDavMB3DtmQLgj6knSmCZSxUjhJIdyPDpaT97Sou9iGEAcrs5+XeRbCecM/wXVm8ZCKvy3FM4IFV2SBhZJOvc6TPe2Jcr5eROwZTblgtaEn2OX2Ut6iWyJphz3T0ZrseyIrhkJ1NBrGIAt5U61qE3g/1P/S2vpqeUgzbsb4sAIjVpn5ALPdmGTJfiNZa9B3o74briw4sc7dR/jWPLcbLLMsQiCQIdIfJ4bcvt8BA81zXqItkXIZaN2xu9StKNlWExHLq0zy/AHwsAryc5aGpdGR8wmv98Ie83Z6AHUAxuRV1k1CgeF+hGhxN1GXa2MTwyVR/+QuTBUvpTFmAXIeL0zGTmbdp/ki3FE4DJGk9p39iphD8Y22rs7cEmv3KqhLFo5gJscD5CTpZ1RGHXBbr7L6PNmK67cEWqlUKEJBF9dMjnNTGxHp5+ymryfh+3QdL9rhVsw5gzTSgHK9/JAEPfw/g2nlOzwXGKoBvmnkr0h+x/40Omkod9vYTAvJpw9X01ojasEXPSxs3qdJ4IYGeobpoVhJna4="
+  api: https://api.run.pivotal.io
+  organization: 
+    secure: "rVPwMzOISrLpxY/ntBxWRmMr9sCgtuJ2rN3Qaf9cKC35M6NrgTHEvtOjaydkzdzYFAr6p/3rGOTKLLQZKlsVXwlWKcgOG2ZgFHWnsBfT8Jwc4Eec4aavShGeQASi3YdayOx1MToIouukApRyjNNZpyTkpFpRw6L8qGBODWwZAKX/lzbqVuroixzH8sCQIT/XCLo+IaqbNR5j4leeE6iETjzJ+WkfqhpNZ2ZFJSrAEQC7IC9UvwY7biCciGksM21yAU0Fiyp4AMqYQJn17M/d5GXL/G1avR2fMRvjHumhctJpPzraFY665f57kh+xR2Ysj4YWbXo09uWLhPymrrd4YmkeVoVyl6LrrakulcLVGVtA+k7ekKBj7BtQkMZ8NR32jlsj08TG447AtNdZR56GvynKgLNMG29e8RJ1T+XIfPawdAxVXvC9vBw9Uk0Qn5XuMl2rx78IsYx1Kkc3ljV0nGYJljcYaJn0jwZWVa6S21oEFOZ9qFBHkCUPBX6P+R4L2XYcyW+ERpluiExJ6y6YXhXtw5/g/lS2h9It8/RCbi/k5BF98duvsKG5cYd/yrMHqCq1haoQBr9hDG0oFai+udONskIGGkNHrGIJepjutq+FjMi8jXU4J/o1iZ4/+3lqYuZG50q0Zu1nFZjVl23XQTy4JBhc9dshQixsgrUK71g="
+    
+  space: development
+notifications:
+  email:
+    on_failure: change
+    on_success: change

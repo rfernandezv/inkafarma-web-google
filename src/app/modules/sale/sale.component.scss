@@ -1,0 +1,44 @@
+.sale-content {
+  max-width: 70%;
+  margin: 2em auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  background: #FAF9EE; 
+
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid transparent;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.full-width-input {
+  width: 100%;
+}
+.detail-product {
+  width: 100%;
+  text-align: left;
+  padding: 10px;
+  background: #ffffcc;
+}
+
+.customerSearchResult {
+  margin-left: 20px;
+}
+.productSearchResult {
+  margin-left: 20px;
+}
+.table-detail {
+  margin-top: 20px;
+}
+.total-detail {
+  text-align: right;
+  margin-top: 10px;
+}
+
+.custom-right-align {
+  text-align: right;
+}
+
+input.custom-right-align {
+  -moz-appearance: textfield;
+}

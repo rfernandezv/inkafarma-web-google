@@ -1,0 +1,10 @@
+<div class="container">
+  <h3 mat-dialog-title><mat-icon>add_alert</mat-icon>{{data.title}}</h3>
+  <div mat-dialog-content>
+    {{data.body}}
+  </div>
+
+  <div mat-dialog-actions>    
+    <button mat-button (click)="onNoClick()" tabindex="-1" style="background: #F5A9A9;">Accept</button>
+  </div>
+</div>

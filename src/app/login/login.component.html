@@ -1,0 +1,25 @@
+﻿<div class="signin-content">
+    <mat-card>
+      <mat-card-content>
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <img src="https://s3.us-east-2.amazonaws.com/kipubit/logo_unmsm.png" width="80" >
+            <img src="https://s3.us-east-2.amazonaws.com/kipubit/inkafarma_logo.png" width="120" >
+          <p>Please login to continue</p>
+          <mat-form-field class="full-width-input">
+            <input matInput placeholder="User" formControlName="username" maxlength="40" required>
+            <mat-error *ngIf="submitted && control.username.errors">
+              Please complete your user name
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="full-width-input">
+            <input matInput type="password" placeholder="Password" formControlName="password" maxlength="64" required>
+            <mat-error *ngIf="submitted && control.password.errors">
+              Please complete your password
+            </mat-error>
+          </mat-form-field>
+          <button mat-raised-button color="primary" type="submit">Login</button>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  

@@ -1,0 +1,70 @@
+<div class="container mat-elevation-z8">
+  <div class="form">
+    <mat-form-field floatPlaceholder="never" color="accent">
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter products">
+    </mat-form-field>
+  </div>
+
+  
+ 
+  <mat-table #table [dataSource]="dataSource" matSort class="mat-cell">
+
+      <ng-container matColumnDef="id" >
+        <mat-header-cell *matHeaderCellDef mat-sort-header   >Id</mat-header-cell>
+        <mat-cell *matCellDef="let row" >{{row.id}}</mat-cell>
+      </ng-container>
+  
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.name}}</mat-cell>
+      </ng-container>
+    
+      <ng-container matColumnDef="currencyISOCode">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Currency</mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{row.currencyISOCode}}</mat-cell>
+      </ng-container>
+      
+      <ng-container matColumnDef="price">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Price <mat-icon>attach_money</mat-icon></mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.price}}</mat-cell>
+      </ng-container>
+  
+      <ng-container matColumnDef="stock">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Stock</mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.stock}}</mat-cell>
+      </ng-container>
+  
+      <ng-container matColumnDef="status">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Is Active?</mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{getDescriptionIsActive(row.status)}}</mat-cell>
+      </ng-container>
+  
+      <!-- actions -->
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef>
+          <button mat-icon-button color="primary" (click)="addNew()" class="btn  btn-default btn-block">
+            <mat-icon aria-label="New Product">add</mat-icon>
+          </button>
+        </mat-header-cell>
+  
+        <mat-cell *matCellDef="let row; let i=index;">
+          <button mat-icon-button color="accent" (click)="startEdit(i, row)" *ngIf="row.status" >
+            <mat-icon aria-label="Edit">edit</mat-icon>
+          </button>
+  
+          <button mat-icon-button color="accent" (click)="deleteItem(i, row)" *ngIf="row.status" >
+            <mat-icon aria-label="Delete">delete</mat-icon>
+          </button>
+
+        </mat-cell>
+      </ng-container>
+  
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      
+    </mat-table>
+  
+
+
+  <mat-paginator [length]="resultsLength" [pageSize]="20" [pageSizeOptions]="[5, 10, 20, 50]" showFirstLastButtons ></mat-paginator>
+</div>

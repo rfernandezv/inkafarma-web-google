@@ -1,0 +1,90 @@
+<div class="container">
+  <h3 mat-dialog-title>Product id: {{data.id}}</h3>
+
+  <form class="mat-dialog-content"  [formGroup]="editForm">
+
+    <div class="form">
+      <mat-form-field color="accent">
+        <input matInput #input class="form-control" placeholder="Name"  formControlName="name" name="name" required >
+        <mat-error *ngIf="submitted && control.name.errors">
+          Please complete the name
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form">
+      <mat-form-field color="accent">
+        <input matInput #input class="form-control" type="number" placeholder="Price" formControlName="price" name="price" required >
+        <mat-error *ngIf="submitted && control.price.errors">
+          Please complete the price
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form">
+      <mat-form-field color="accent">
+        <mat-select placeholder="Currency" formControlName="currency" name="currency" required>
+          <mat-option *ngFor="let currency of currencyList" [value]="currency.value">
+            {{currency.viewValue}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="submitted && control.currency.errors">
+          Please select a currency
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form">
+      <mat-form-field color="accent">
+        <input matInput placeholder="Stock" type="number" formControlName="stock" name="stock" required>
+        <mat-error *ngIf="submitted && control.stock.errors">
+          Please complete the stock
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form">
+      <mat-form-field color="accent">
+        <mat-select placeholder="Category" formControlName="categoryId" name="categoryId" required>
+          <mat-option *ngFor="let category of categoryList" [value]="category.value">
+            {{category.viewValue}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="submitted && control.categoryId.errors">
+          Please select a category
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form">
+      <mat-form-field color="accent">
+        <input matInput placeholder="Lot Number" type="number" formControlName="lotNumber" name="lotNumber" required>
+        <mat-error *ngIf="submitted && control.lotNumber.errors">
+          Please complete the lot number
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form">
+      <mat-form-field color="accent">
+        <input matInput placeholder="Sanitary Registration Number" formControlName="sanitaryRegistrationNumber" name="sanitaryRegistrationNumber" required>
+        <mat-error *ngIf="submitted && control.sanitaryRegistrationNumber.errors">
+          Please complete the Sanitary Registration Number
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form">
+      <mat-form-field color="accent">
+          <input matInput [matDatepicker]="picker" placeholder="Choose a expiration date"  (dateInput)="addEventExpiration('input', $event)" (dateChange)="addEventExpiration('change', $event)" formControlName="expirationDate" name="expirationDate" >
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker touchUi #picker></mat-datepicker>
+      </mat-form-field>
+    </div>
+
+    <div mat-dialog-actions>
+      <button mat-button (click)="onSubmit()" [disabled]="!editForm.valid" >Save</button>
+      <button mat-button (click)="onNoClick()" tabindex="-1">Cancel</button>
+    </div>
+  </form>
+</div>
